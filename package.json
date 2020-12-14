@@ -10,11 +10,27 @@
     "type": "git",
     "url": "git+https://github.com/mvanucci/clean-arch-node-api.git"
   },
+  "lint-staged": {
+    "*.js": [
+      "standard --fix",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
   "keywords": [],
   "author": "",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/mvanucci/clean-arch-node-api/issues"
   },
-  "homepage": "https://github.com/mvanucci/clean-arch-node-api#readme"
+  "homepage": "https://github.com/mvanucci/clean-arch-node-api#readme",
+  "devDependencies": {
+    "husky": "^5.0.6",
+    "lint-staged": "^10.5.3",
+    "standard": "^16.0.3"
+  }
 }
