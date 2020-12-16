@@ -81,18 +81,30 @@ describe('Login Router', () => {
     }
     const httpResponse = sut.router(httpRequest)
     expect(httpResponse.statusCode).toBe(401)
+    expect(httpResponse.body).toEqual(new UnauthorizeError())
   })
 
-  test('should return 401 when invalid credentials are provided', () => {
-    const { sut } = makeSut()
+  test('should return 500 when if no authUseCase is provided', () => {
+    const sut = new LoginRouter()
     const httpRequest = {
       body: {
-        email: 'invalid_email@email.com',
-        password: 'invalid_passowrd'
+        email: 'any_email@email.com',
+        password: 'any_passowrd'
       }
     }
     const httpResponse = sut.router(httpRequest)
-    expect(httpResponse.statusCode).toBe(401)
-    expect(httpResponse.body).toEqual(new UnauthorizeError())
+    expect(httpResponse.statusCode).toBe(500)
+  })
+
+  test('should return 500 when if has no auth method', () => {
+    const sut = new LoginRouter({})
+    const httpRequest = {
+      body: {
+        email: 'any_email@email.com',
+        password: 'any_passowrd'
+      }
+    }
+    const httpResponse = sut.router(httpRequest)
+    expect(httpResponse.statusCode).toBe(500)
   })
 })
